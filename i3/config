@@ -94,7 +94,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3
-bindsym $mod+Shift+e exec /home/marguz/.config/i3/scripts/exit_menu
+bindsym $mod+Shift+e exec ~/.config/i3/scripts/exit_menu
 
 
 # resize window (you can also use the mouse for that)
@@ -134,7 +134,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color    $urgent-text-col
 
 # bar
 bar {
-    status_command i3blocks -c /home/marguz/.config/i3/i3blocks.conf
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
     tray_output primary
     colors {
 	   background $bar-color
@@ -192,8 +192,6 @@ gaps inner 7
 smart_gaps on
 smart_borders no_gaps
 
-
-
 # key-bindings
 # pulse audio
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && pkill -RTMIN+1 i3blocks #increase sound volume
@@ -206,8 +204,8 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 # sreen brightness controls
 #bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 #bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
-bindsym XF86MonBrightnessUp exec /home/marguz/.config/i3/scripts/brightinc
-bindsym XF86MonBrightnessDown exec /home/marguz/.config/i3/scripts/brightdec
+bindsym XF86MonBrightnessUp exec ~/.config/i3/scripts/brightinc
+bindsym XF86MonBrightnessDown exec ~/.config/i3/scripts/brightdec
 
 # key-bindings
 #bindsym XF86AudioPlay exec playerctl play-pause
@@ -227,7 +225,7 @@ bindsym $mod+d exec ~/.config/i3/scripts/rofi_1
 bindsym $mod+Insert exec xfce4-screenshooter
 
 # startup
-#exec_always --no-startup-id feh --bg-scale /home/booker/.wallpaper.jpg
+#exec_always --no-startup-id feh --bg-scale ~/Pictures/.wallpaper.jpg
 exec_always --no-startup-id nitrogen --restore
 #exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
 #exec --no-startup-id spotify

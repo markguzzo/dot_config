@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# One of the following: xrandr, xbacklight, kernel
+METHOD="xbacklight"
+
+# Left click
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+  xbacklight -dec 5
+# Right click
+elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+  xbacklight -inc 5
+fi
+
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 20 && pkill -RTMIN+10 i3blocks # increase screen brightness
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 20 && pkill -RTMIN+10 i3blocks  # decrease screen brightness
+
+printf '%.*f\n' 0 $(xbacklight)

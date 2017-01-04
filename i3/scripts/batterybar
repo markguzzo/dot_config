@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 #  batterybar; displays battery percentage as a bar on i3blocks
 #  
 #  Copyright 2015 Keftaa <adnan.37h@gmail.com>
@@ -121,4 +121,3 @@ echo "<span foreground=\"$color\">$percentage%$remaining_formatted</span>"
 #    echo "$status <span foreground=\"$color\">$percentage%$remaining_formatted</span>"
 #fi
 #    echo "<span foreground=\"$color\">$squares</span>" 
-

@@ -1,46 +1,42 @@
-# mod
+# mod | run xmodmap
 set $mod Mod4
+set $mod1 Mod1
 
 # font
-font pango: System San Francisco Display 10
+font pango: Droid Sans 10
 
 # thin borders
-hide_edge_borders both
+#hide_edge_borders both
 
 # drag windows
+# use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+#bindsym $mod+h focus left
+#bindsym $mod+j focus down
+#bindsym $mod+k focus up
+#bindsym $mod+l focus right
 
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+# lock
+#bindsym $mod+Shift+x exec i3lock --color 475263
+#bindsym $mod+shift+l exec --no-startup-id ~/.config/i3/scripts/lock.sh
+bindsym $mod1+Control+l exec --no-startup-id ~/.config/i3/scripts/lock.sh
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
+#bindsym $mod+Shift+h move left
+#bindsym $mod+Shift+j move down
+#bindsym $mod+Shift+k move up
+#bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-bindsym $mod+b split h
+bindsym $mod+h split h
 
 # split in vertical orientation
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
+bindsym $mod+f fullscreen toggle
 
 # change container layout
 bindsym $mod+s layout stacking
@@ -57,7 +53,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 set $workspace1 "1 "
-set $workspace2 "2 "
+set $workspace2 "2:Work "
 set $workspace3 "3 "
 set $workspace4 "4 "
 set $workspace5 "5 "
@@ -103,10 +99,10 @@ bindsym $mod+Shift+e exec /home/marguz/.config/i3/scripts/exit_menu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-    bindsym h resize shrink width 10 px or 10 ppt
-    bindsym j resize grow height 10 px or 10 ppt
-    bindsym k resize shrink height 10 px or 10 ppt
-    bindsym l resize grow width 10 px or 10 ppt
+    #bindsym h resize shrink width 10 px or 10 ppt
+    #bindsym j resize grow height 10 px or 10 ppt
+    #bindsym k resize shrink height 10 px or 10 ppt
+    #bindsym l resize grow width 10 px or 10 ppt
 
     bindsym Left resize shrink width 10 px or 10 ppt
     bindsym Down resize grow height 10 px or 10 ppt
@@ -120,102 +116,127 @@ mode "resize" {
 # resize mode
 bindsym $mod+r mode "resize"
 
-set $bg-color				#6D8BD1
-set $inactive-bg-color   	#2f343f
-set $text-color          	#f3f4f5
-set $inactive-text-color 	#676E7D
-set $urgent-bg-color     	#E53935
-set $bar-color				#050505
+# define colors
+set $bg-color            #0063BA
+set $inactive-bg-color   #000C17
+set $text-color          #FFFFFF          
+set $inactive-text-color #B4B5B6
+set $urgent-bg-color     #BA0006
+set $urgent-text-color   #FFFFFF
+set $bar-color			 #050505
 
 # window colors
-#                       border              	background         text                 indicator
-client.focused          $bg-color         	$bg-color          $text-color          
-client.unfocused        $inactive-bg-color	$inactive-bg-color $inactive-text-color 
-client.focused_inactive $inactive-bg-color	$inactive-bg-color $inactive-text-color 
-client.urgent           $urgent-bg-color	$urgent-bg-color   $text-color          
+#                       border              background          text                  indicator
+client.focused          $bg-color           $bg-color           $text-color           #00ff00
+client.unfocused        $inactive-bg-color  $inactive-bg-color  $inactive-text-color  #00ff00
+client.focused_inactive $inactive-bg-color  $inactive-bg-color  $inactive-text-color  #00ff00
+client.urgent           $urgent-bg-color    $urgent-bg-color    $urgent-text-color    #00ff00
 
 # bar
 bar {
-	status_command i3blocks -c /home/marguz/.config/i3/i3blocks.conf
-	colors {
-		background $bar-color
-		separator #757575
-		#                  border             background         text
+    status_command i3blocks -c /home/marguz/.config/i3/i3blocks.conf
+    tray_output primary
+    colors {
+	   background $bar-color
+       separator #757575
+	    #                  border             background         text
 		focused_workspace  $bg-color          $bg-color          $text-color
 		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
 		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-	}
-}
+	       }
+    }
 
 
 # sticky window
 bindsym $mod+Shift+s sticky toggle
 
-# floating
+# moving along the workspaces left and right/u and i
+bindsym Mod4+i workspace next_on_output
+bindsym Mod4+u workspace prev_on_output
+
+# alt-tab like for workspaces
+bindsym $mod+Escape workspace back_and_forth
+
+# windows Rules
+# # Run "xprop" and take WM_CLASS(STRING) = "thunar", "Thunar"
+# the class variable is the second string and the instance variable is the first string
+# browser pop-ups
+for_window [window_role="pop-up"] floating enable
+for_window [class="Thunar" instance="thunar"] floating enable
+for_window [class="Thunar" instance="Thunar"] floating enable
+for_window [class="File-roller" instance="file-roller"] floating enable
 for_window [class="qTox"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Skype"] floating enable
-for_window [class="Wicd-client.py"] floating enable
 
-
-# default workspaces
-assign [class="Spotify"] $workspace10
-assign [class="Skype"] $workspace9
-assign [class="qTox"] $workspace9
+# assign applications to workspaces
 assign [class="Vmware-view"] $workspace2
-assign [class="Vmware" ] $workspace3
+#assign [class="Spotify"] $workspace10
+#assign [class="Skype"] $workspace9
+#assign [class="qTox"] $workspace9
 
 # workspace default monitors
 workspace $workspace1 output LVDS1
-#workspace $workspace2 output 
-#workspace $workspace3 output DVI-I-2
-#workspace $workspace4 output DVI-I-2
-#workspace $workspace5 output DVI-I-2
-#workspace $workspace6 output DVI-I-2
-workspace $workspace9 output HDMI2
+workspace $workspace2 output HDMI2
+workspace $workspace3 output DVI-I-2
+workspace $workspace4 output DVI-I-2
+workspace $workspace5 output DVI-I-2
+workspace $workspace6 output DVI-I-2
+workspace $workspace9 output DVI-I-2
 workspace $workspace10 output VGA1
 
+# gaps
+gaps inner 7
+#gaps outer  1
+#gaps outer 5
+smart_gaps on
+smart_borders no_gaps
+
+
+
 # key-bindings
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-# change volume or toggle mute
-#bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks 
-#bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
-#bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -RTMIN+1
-bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -SIGRTMIN+22 i3blocks 
-bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -SIGRTMIN+22 i3blocks
-bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -SIGRTMIN+22
+# pulse audio
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && pkill -RTMIN+1 i3blocks #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && pkill -RTMIN+1 i3blocks #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+#bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ && pkill -SIGRTMIN+22 i3blocks 
+#bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- && pkill -SIGRTMIN+22 i3blocks
+#bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle && pkill -SIGRTMIN+22
 
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioPause exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+# sreen brightness controls
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec /home/marguz/.config/i3/scripts/brightinc
+bindsym XF86MonBrightnessDown exec /home/marguz/.config/i3/scripts/brightdec
 
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 && pkill -SIGRTMIN+22 i3blocks # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 && pkill -SIGRTMIN+22 i3blocks # decrease screen brightness
-
-bindsym $mod+Shift+v exec vmware-view
+# key-bindings
+#bindsym XF86AudioPlay exec playerctl play-pause
+#bindsym XF86AudioPause exec playerctl play-pause
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+Shift+f exec firefox
+bindsym $mod+Shift+v exec vmware-view
 bindsym $mod+Shift+g exec google-chrome
 bindsym $mod+Return exec xfce4-terminal
+# kill focused window
 bindsym $mod+Shift+q kill
-# lock
-bindsym $mod+Shift+x exec i3lock --color 475263
 bindsym Print exec screenshot
-#bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
-bindsym $mod+d exec rofi -show run
+# popup application launcher
+#bindsym $mod+d exec rofi -show run -lines 5 -eh 2 -width 50 -padding 50 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+bindsym $mod+d exec ~/.config/i3/scripts/rofi_1
+bindsym $mod+Insert exec xfce4-screenshooter
+
 # startup
 #exec_always --no-startup-id feh --bg-scale /home/booker/.wallpaper.jpg
+exec_always --no-startup-id nitrogen --restore
 #exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
-exec_always --no-startup-id xrandr --output VIRTUAL1 --off --output DP3 --off --output DP2 --off --output DP1 --off --output HDMI3 --off --output HDMI2 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI1 --off --output LVDS1 --off --output VGA1 --mode 1280x1024 --pos 1920x0 --rotate normal
-#exec_always --no-startup-id xrandr --output VIRTUAL1 --off --output DP3 --off --output DP2 --off --output DP1 --off --output HDMI3 --off --output HDMI2 --mode 1920x1080 --pos 1366x0 --rotate normal --output HDMI1 --off --output LVDS1 --mode 1366x768 --pos 0x312 --rotate normal --output VGA1 --mode 1280x1024 --pos 3286x56 --rotate normal
-
-
 #exec --no-startup-id spotify
 #exec --no-startup-id skype
-exec --no-startup-id wicd-client
+exec --no-startup-id dropbox start
+exec --no-startup-id nm-applet start
+exec --no-startup-id pasystray -a
+exec xautolock -time 5 -locker ~/.config/i3/scripts/lock.sh &
+exec_always --no-startup-id xrandr --output HDMI2 --auto --right-of LVDS1
 
 # Keys
 #exec_always xmodmap -e "clear lock" #disable caps lock switch
